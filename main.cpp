@@ -14,7 +14,7 @@
 
 using namespace std;
 
-string shuffler(QProgressBar *progressBar, QSlider *slider, const vector<string>& excludeNames) {
+string shuffler(QProgressBar *progressBar, QSlider *slider, const vector<string>& excludeNames, int groupSize) {
     srand((unsigned)time(0));
     int r1, r2, ct = 0;
     string trida[2][15] = {
@@ -49,7 +49,7 @@ string shuffler(QProgressBar *progressBar, QSlider *slider, const vector<string>
         QThread::msleep(100);
     }
 
-    // Display shuffled pairs
+    // Display shuffled pairs with the specified group size
     string shuffledPairs;
     for (int i = 0; i < maxIterations; i++) {
         if (trida[0][i] != "*") {
@@ -59,7 +59,7 @@ string shuffler(QProgressBar *progressBar, QSlider *slider, const vector<string>
                 shuffledPairs += " - ";
             }
         }
-        if (ct == 2) {
+        if (ct == groupSize) {
             shuffledPairs += "\n\n";
             ct = 0;
         }
@@ -92,7 +92,13 @@ int main(int argc, char **argv) {
     QPushButton *shuffleButton = new QPushButton("Shuffle Pairs", &window);
     shuffleButton->setGeometry(10, 90, 480, 30);
 
+    // Create a button to set the group size
+    QPushButton *groupSizeButton = new QPushButton("Set Group Size", &window);
+    groupSizeButton->setGeometry(10, 130, 480, 30);
+
     window.show();
+
+    int groupSize = 2; // Default group size
 
     // Connection to trigger shuffling when the button is clicked
     QObject::connect(shuffleButton, &QPushButton::clicked, [&]() {
@@ -114,10 +120,21 @@ int main(int argc, char **argv) {
                 }
             }
 
-            // Call shuffler function with the excluded names
-            string shuffledPairs = shuffler(progressBar, slider, excludeNames);
+            // Call shuffler function with the excluded names and group size
+            string shuffledPairs = shuffler(progressBar, slider, excludeNames, groupSize);
             // Display shuffled pairs using a message box
             QMessageBox::information(&window, "Shuffled Pairs", QString::fromStdString(shuffledPairs));
+        }
+    });
+
+    // Connection to set the group size when the button is clicked
+    QObject::connect(groupSizeButton, &QPushButton::clicked, [&]() {
+        // Get user input for group size
+        bool ok;
+        int newGroupSize = QInputDialog::getInt(&window, "Set Group Size", "Enter the new group size:", groupSize, 1, 100, 1, &ok);
+
+        if (ok) {
+            groupSize = newGroupSize;
         }
     });
 
