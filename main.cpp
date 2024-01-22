@@ -18,7 +18,7 @@ string shuffler(QProgressBar *progressBar, QSlider *slider, const vector<string>
     srand((unsigned)time(0));
     int r1, r2, ct = 0;
     string trida[2][15] = {
-        {"Vojtech Bien", "David Boucek", "Jakub Dopan", "Josef Hasek", "Artur Havrylenko", "Jan Herza", "Milan Holecek", "Mikulas Chlup", "Ondrej Kacer", "Vojtech Kminek", "Nori Koci", "Veronika Kominkova", "Amelie Martini", "Stepan Skruzny", "Miroslav Klasna"},
+        {"-Vojtech Bien-", "-David Boucek-", "-Jakub Dopan-", "-Josef Hasek-", "-Artur Havrylenko-", "-Jan Herza-", "-Milan Holecek-", "-Mikulas Chlup-", "-Ondrej Kacer-", "-Vojtech Kminek-", "-Nori Koci-", "-Veronika Kominkova-", "-Amelie Martini-", "-Stepan Skruzny-", "-Miroslav Klasna-"},
         {"Bien", "Boucek", "Dopan", "Hasek", "Havrylenko", "Herza", "Holecek", "Chlup", "Kacer", "Kminek", "Koci", "Kominkova", "Martini", "Skruzny", "Klasna"}
     };
 
