@@ -1,0 +1,1 @@
+I kinda works, you just have to manually change the students. I still haven't figured out how to pull from a text file. HELP
